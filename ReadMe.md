@@ -228,3 +228,18 @@ export default function(target, key) {
 
 - 对于数组长度的变化操作，如果是隐式的增加数据，不会触发 length 拦截: 比如 proxyArr[5] = 100
 - 显式设置length属性，在新增时触发 length 拦截器，这是正常的，但是删除的时候，不会触发 delete 拦截器，这是不正常的
+
+```js
+// 需要判断 length 是否发生变化。如果有，则需要触发 length 相关的更新
+if (Array.isArray(target) && oldLen !== target.length) {
+    if (key !== 'length') {
+        // 隐式触发 length 相关的更新
+        trigger(target, TriggerOPType.SET, 'length');
+    } else {
+        // 显式触发 length 相关的更新。可能触发的是删除操作，length 变小，数组将删除元素
+        for (let i = target.length; i < oldLen; i++) {
+            trigger(target, TriggerOPType.DELETE, i);
+        }
+    }
+}
+```
