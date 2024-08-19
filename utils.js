@@ -29,3 +29,6 @@ export function hasChanged(oldVal, newVal) {
     // Object.is 来判断，可以规避些特殊情况：NaN === NaN 为 false，0 === -0 为 true
     return !Object.is(oldVal, newVal);
 }
+
+// 特殊标识
+export const RAW = Symbol('RAW')

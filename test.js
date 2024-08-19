@@ -13,7 +13,30 @@ const obj = {
 
 const rst = reactive(obj);
 // delete rst.a;
-for (let key in rst) {}
+// for (let key in rst) {}
 // "a" in rst;
 // rst.e = 1;
 // console.log(rst.b.c);
+
+const arr = [obj];
+const proxyArr = reactive(arr);
+
+// 测试代理数组读取和写入行为：收集器和触发器是否正常
+
+// 读取
+// proxyArr[0];
+// proxyArr.length;
+// for(let key in proxyArr) {
+//     proxyArr[key]
+// }
+
+// for(let i = 0; i < proxyArr.length; i++) {
+//     proxyArr[i]
+// }
+
+console.log(proxyArr.includes(obj)); 
+// console.log(proxyArr);
+// proxyArr.indexOf(obj);
+
+// 写入
+// proxyArr[0] = 2;
