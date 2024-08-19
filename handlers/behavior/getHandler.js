@@ -1,4 +1,4 @@
-import track from "../../effect/track.js";
+import track, { pauseTrack, resumeTrack } from "../../effect/track.js";
 import { TrackOPType, isObject, RAW } from "../../utils.js";
 import { reactive } from "../../reactive.js";
 
@@ -15,8 +15,18 @@ const arrayInstrumentations = {};
         }
         return res;
     }
-})
+});
 
+// 处理数组的 push、pop、shift、unshift、splice 方法的拦截器, 重写这四个方法
+// 这几个方法在调用的时候暂停依赖收集，当调用完成的时候恢复依赖收集
+["push", "pop", "shift", "unshift", "splice"].forEach(key => {
+    arrayInstrumentations[key] = function(...args) {
+        pauseTrack();
+        const rst = Array.prototype[key].apply(this, args);
+        resumeTrack();
+        return rst;
+    }
+});
 
 export default function(target, key) {
     // console.log(`拦截到了${key}的读取行为, 将值返回`);
