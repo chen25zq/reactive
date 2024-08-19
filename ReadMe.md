@@ -222,3 +222,9 @@ export default function(target, key) {
 }
 
 ```
+
+
+## 数组隐式增加属性，不改变长度问题
+
+- 对于数组长度的变化操作，如果是隐式的增加数据，不会触发 length 拦截: 比如 proxyArr[5] = 100
+- 显式设置length属性，在新增时触发 length 拦截器，这是正常的，但是删除的时候，不会触发 delete 拦截器，这是不正常的

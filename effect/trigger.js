@@ -3,6 +3,6 @@
  */
 
 export default function(target, type, key) {
-    console.log(`事件触发器原对象：`, target);
+    // console.log(`事件触发器原对象：`, target);
     console.log(`触发的 ${key} 属性 ${type} 操作被拦截`);
 }

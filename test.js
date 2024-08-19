@@ -34,9 +34,11 @@ const proxyArr = reactive(arr);
 //     proxyArr[i]
 // }
 
-console.log(proxyArr.includes(obj)); 
+// console.log(proxyArr.includes(obj)); 
 // console.log(proxyArr);
 // proxyArr.indexOf(obj);
 
 // 写入
 // proxyArr[0] = 2;
+
+proxyArr[5] = 100;

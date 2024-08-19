@@ -8,12 +8,20 @@ export default function(target, key, value) {
     const type = target.hasOwnProperty(key) ? TriggerOPType.SET : TriggerOPType.ADD;
 
     const oldValue = target[key];
+    const oldLen = Array.isArray(target) ? target.length : undefined;
+
+    // 触发更新前的钩子函数
     // 先进行设置操作
     const result = Reflect.set(target, key, value);
 
     if (hasChanged(oldValue, value)) {
         // 是否派发更新，要进行判断，如果设置的值一样，则不派发更新
         trigger(target, type, key);
+
+        // 需要判断 length 是否发生变化。如果有，则需要触发 length 相关的更新
+        if (Array.isArray(target) && oldLen !== target.length) {
+            trigger(target, TriggerOPType.SET, 'length');
+        }
     }
 
     return result;
