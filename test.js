@@ -42,3 +42,4 @@ const proxyArr = reactive(arr);
 // proxyArr[0] = 2;
 
 proxyArr[5] = 100;
+// proxyArr.length = 13;
