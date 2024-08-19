@@ -34,6 +34,12 @@ export function reactive(target) {
 }
 ```
 
+- 注意： package.json 文件中配置了 "type": "module" 
+目的：为了让 JS 能够识别 import 语法，否则会报错。
+
+主要效果是告诉Node.js，这个项目中的所有 .js 文件都应该被视为ES模块（ES Module），而不是传统的CommonJS模块。
+
+
 #### handlers
 
 ```js
