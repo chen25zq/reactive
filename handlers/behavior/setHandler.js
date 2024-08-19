@@ -19,8 +19,16 @@ export default function(target, key, value) {
         trigger(target, type, key);
 
         // 需要判断 length 是否发生变化。如果有，则需要触发 length 相关的更新
-        if (Array.isArray(target) && oldLen !== target.length && key !== 'length') {
-            trigger(target, TriggerOPType.SET, 'length');
+        if (Array.isArray(target) && oldLen !== target.length) {
+            if (key !== 'length') {
+                // 隐式触发 length 相关的更新
+                trigger(target, TriggerOPType.SET, 'length');
+            } else {
+                // 显式触发 length 相关的更新。可能触发的是删除操作，length 变小，数组将删除元素
+                for (let i = target.length; i < oldLen; i++) {
+                    trigger(target, TriggerOPType.DELETE, i);
+                }
+            }
         }
     }
 

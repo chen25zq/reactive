@@ -18,7 +18,7 @@ const rst = reactive(obj);
 // rst.e = 1;
 // console.log(rst.b.c);
 
-const arr = [obj];
+const arr = [1, 2, 3, obj];
 const proxyArr = reactive(arr);
 
 // 测试代理数组读取和写入行为：收集器和触发器是否正常
@@ -41,5 +41,5 @@ const proxyArr = reactive(arr);
 // 写入
 // proxyArr[0] = 2;
 
-proxyArr[5] = 100;
-// proxyArr.length = 13;
+// proxyArr[5] = 100;
+proxyArr.length = 2;
