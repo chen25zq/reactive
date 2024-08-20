@@ -32,3 +32,5 @@ export function hasChanged(oldVal, newVal) {
 
 // 特殊标识
 export const RAW = Symbol('RAW')
+
+export const ITERATE_KEY = Symbol('iterate')
