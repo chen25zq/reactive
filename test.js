@@ -1,17 +1,54 @@
 import { reactive } from './reactive.js';
+import { effect } from './effect/effect.js';
 
+// 测试 2
 const obj = {
-    a: 1,
-    b: {
-        c: 2,
-    },
-    d: {
-        name: 'd',
-        age: 3,
-    }
-}
+  a: 1,
+  b: 2,
+};
+const state = reactive(obj);
+effect(() => {
+  if (state.a === 1) {
+    state.b;
+  } else {
+    state.c;
+  }
+  console.log("执行了函数1");
+});
+effect(() => {
+  console.log(state.c);
+  console.log("执行了函数2");
+});
+state.a = 2;
+state.c = 2;
+// state.b = 2;
 
-const rst = reactive(obj);
+
+// 测试 1
+// const obj = {
+//   a: 1,
+//   b: 2,
+// };
+// const state = reactive(obj);
+// function fn() {
+//   console.log("fn");
+//   state.a = state.a + 1;
+// }
+// effect(fn);
+// state.a = 100;
+
+// const obj = {
+//     a: 1,
+//     b: {
+//         c: 2,
+//     },
+//     d: {
+//         name: 'd',
+//         age: 3,
+//     }
+// }
+
+// const rst = reactive(obj);
 // delete rst.a;
 // for (let key in rst) {}
 // "a" in rst;
@@ -44,4 +81,4 @@ const proxyArr = reactive(arr);
 // proxyArr[5] = 100;
 // proxyArr.length = 2;
 
-proxyArr.push(4);
+// proxyArr.push(4);
