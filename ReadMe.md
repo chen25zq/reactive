@@ -243,3 +243,7 @@ if (Array.isArray(target) && oldLen !== target.length) {
     }
 }
 ```
+
+![响应式实现](./image/实现响应式系统.png)
+
+
